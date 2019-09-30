@@ -1,15 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Auk.CsharpBootstrapper.Example.Model;
 using Auk.CsharpBootstrapper.Extensions;
 using Auk.CsharpBootstrapper.Helper;
 using Auk.CsharpBootstrapper.Implementations;
 using Auk.CsharpBootstrapper.Model;
+using Auk.CsharpBootstrapper.StaticCache;
+using log4net;
 
 namespace Auk.CsharpBootstrapper.Example
 {
     class Program
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Program));
+
         static void Main(string[] args)
         {
             /*
@@ -17,6 +22,64 @@ namespace Auk.CsharpBootstrapper.Example
              */
 
             LogHelper.EnableDebugMode();
+            var configFilePath = PathHelper.GetPathCombineFromBase("Auk.CsharpBootstrapper.Example.log4net.config");
+            LogHelper.GetConfiguredLog4Net(configFilePath);
+            LogHelper.InjectLog4NetLogger(Log);
+
+            var urlList = new List<string>();
+            urlList.Add("https://www.nuget.org/packages/Auk.CsharpBootstrapper/1.1.1");
+            urlList.Add("https://www.nuget.org/packages/Auk.CsharpBootstrapper/1.0.2");
+            urlList.Add("https://www.nuget.org/packages/Auk.CsharpBootstrapper/1.1.3");
+            urlList.Add("https://www.nuget.org/packages/Auk.CsharpBootstrapper/1.0.4");
+
+            //var contents = ApiHelper.GetUrlsContents(urlList, true);
+
+
+            //contents.Result.Select(
+            //            w =>
+            //            {
+            //                var content = w.Content.Substring(0, 50);
+            //                var url     = w.Url;
+
+
+            //                LogHelper.QDebug(url, content);
+
+            //                return w;
+            //            })
+            //        .ToArray();
+
+            CommonCache.Set("s", new List<string>());
+            CommonCache.Set("s", urlList);
+
+            var person2 = SingletonHelper.Create(
+                 () =>
+                 {
+                     Console.WriteLine(DateTime.Now);
+
+                     return new Person2();
+                 }, nameof(Person2));
+
+            var person3 = SingletonHelper.Create(
+                () =>
+                {
+                    Console.WriteLine(DateTime.Now);
+
+                    return new Person2();
+                },
+                nameof(Person2));
+
+            var person4 = SingletonHelper.Create(
+                () =>
+                {
+                    Console.WriteLine(DateTime.Now);
+
+                    return new Person2();
+                },
+                nameof(Person2));
+
+            Console.WriteLine(person4 == person2);
+
+            //CommonCache.LogPrint();
 
             //ApiHelper.
             //ParallelTaskHelper.
@@ -27,8 +90,14 @@ namespace Auk.CsharpBootstrapper.Example
             //catch (Exception e)
             //{
             //    e.PathErrorLogAndThrow("Path");
-            //    e.LogAndThrow("" , null, isThrow:true);
+            //    //e.LogAndThrow("", null, isThrow: true);
             //}
+
+            //LogHelper.QInfo("Hello", "World");
+            //LogHelper.QDebug("Hello", "World");
+            //LogHelper.QFatal("Hello", "World");
+            //LogHelper.QWarn("Hello", "World");
+
             //CommonIdentifier.op
             //StringHelper.CreateCsharpInterfaceAndClassCode();
             //PathHelper.GetPathCombineFromBase()
@@ -67,53 +136,6 @@ namespace Auk.CsharpBootstrapper.Example
 
             //MutexHelper.
             //FileHelper.
-            var index = 0;
-
-            var x = ActionHelper.LazyGetter(
-                () =>
-                {
-                    Console.WriteLine(DateTime.Now + $" Index : {index}");
-                    index++;
-
-                    return Enumerable.Range(0, numberToRun).ToArray();
-                });
-
-            //var values = x.ValueAtOnce;
-            //var values2 = x.ValueAtOnce;
-            //var values3 = x.ValueAtOnce;
-
-            //LogHelper.LogModelWithStateData(null, values3);
-
-            //x.AttachRecallActionEvent(1, 7);
-
-            //var index2 = 0;
-            //var actionRunner = new ActionRunner(
-            //    () =>
-            //    {
-            //        Console.WriteLine(DateTime.Now + $" Index : {index2}");
-            //        index2++;
-
-            //        if (index2 > 3)
-            //        {
-            //            throw new Exception("Hello World", new Exception("Inner Exception"));
-            //        }
-            //    },
-            //    "Index Runner");
-
-            //actionRunner.AttachRecallActionEvent(2, 10);
-            //StringHelper.
-            new CommonValidateResult<string>(true, "Sucess");
-            var x2 = new CommonValidateResult<string>(false, "Failed");
-            var person2 = new Person2();
-            var person1 = new Person1();
-
-            LogHelper.LogModelWithStateData(null, person1);
-            LogHelper.LogModelWithStateData(null, person2);
-
-            person2.SafeInjectPropertiesValuesWithSameNames(person1);
-
-            LogHelper.LogModelWithStateData(null, person1);
-            LogHelper.LogModelWithStateData(null, person2);
 
             Console.ReadKey();
         }

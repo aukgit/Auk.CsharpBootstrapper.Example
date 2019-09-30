@@ -37,8 +37,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Auk.CsharpBootstrapper, Version=1.1.1.0, Culture=neutral, PublicKeyToken=6ca49a66d64b8152, processorArchitecture=MSIL">
-      <HintPath>packages\Auk.CsharpBootstrapper.1.1.1\lib\net452\Auk.CsharpBootstrapper.dll</HintPath>
+    <Reference Include="Auk.CsharpBootstrapper, Version=1.1.3.0, Culture=neutral, PublicKeyToken=6ca49a66d64b8152, processorArchitecture=MSIL">
+      <HintPath>packages\Auk.CsharpBootstrapper.1.1.3\lib\net452\Auk.CsharpBootstrapper.dll</HintPath>
     </Reference>
     <Reference Include="AutoFixture, Version=4.11.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
       <HintPath>packages\AutoFixture.4.11.0\lib\net452\AutoFixture.dll</HintPath>
@@ -99,6 +99,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Auk.CsharpBootstrapper.Example.log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
