@@ -1,6 +1,13 @@
 # Auk.CsharpBootstrapper.Example
 Some of the examples of the Auk.CsharpBootstrapper packages.
 
+# Video
+- https://www.youtube.com/watch?v=BbPD3giJCxg&feature=youtu.be
+
+# Nuget Package
+- https://www.nuget.org/packages/Auk.CsharpBootstrapper
+- https://www.nuget.org/packages/Auk.CsharpBootstrapper.Standard/
+
 # Features List
 - Good with logging
 - Converting objects to string
