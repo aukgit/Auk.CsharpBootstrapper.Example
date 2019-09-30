@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using Auk.CsharpBootstrapper.Example.Model;
 using Auk.CsharpBootstrapper.Extensions;
 using Auk.CsharpBootstrapper.Helper;
 using Auk.CsharpBootstrapper.Implementations;
+using Auk.CsharpBootstrapper.Implementations.ProcessEventInfo;
 using Auk.CsharpBootstrapper.Model;
 using Auk.CsharpBootstrapper.StaticCache;
 using log4net;
@@ -50,6 +53,23 @@ namespace Auk.CsharpBootstrapper.Example
 
             CommonCache.Set("s", new List<string>());
             CommonCache.Set("s", urlList);
+
+            //ProcessHelper.AttachEventLogger();
+
+            //var re = new ProcessBothDataReceiveEventHandler();
+            //re.
+
+            //var process = new Process();
+
+            //process.StartInfo = new ProcessStartInfo();
+            //process.ErrorDataReceived += (sender,  eventArgs) =>
+            //{
+            //    // write to file.
+
+            //    Mutex
+            //}
+
+
 
             var person2 = SingletonHelper.Create(
                  () =>
